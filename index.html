@@ -5,18 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steven TO | CV</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
         :root {
-            --primary: #3F75FF;
-            --primary-light: #EBF1FF;
-            --dark: #1C2033;
-            --dark-light: #4D5370;
-            --gray: #8A94A6;
-            --light-gray: #F7F9FC;
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --primary-light: #EEF2FF;
+            --accent: #06B6D4;
+            --dark: #111827;
+            --dark-light: #374151;
+            --gray: #6B7280;
+            --light-gray: #F9FAFB;
             --white: #FFFFFF;
-            --border: #E5E9F2;
+            --border: #E5E7EB;
+            --success: #10B981;
+            --warning: #F59E0B;
         }
 
         html {
@@ -28,6 +33,18 @@
             color: var(--dark);
             line-height: 1.6;
             background-color: var(--light-gray);
+            overflow-x: hidden;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         .section-title {
@@ -40,366 +57,911 @@
         .section-title::after {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 2px;
-            background-color: var(--primary);
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
             bottom: -4px;
             left: 0;
+            border-radius: 2px;
         }
 
         .experience-card, .education-card {
             background-color: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 12px;
+            overflow: hidden;
             transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: relative;
         }
 
         .experience-card:hover, .education-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            border-color: var(--primary-light);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 4px 0 0 4px;
         }
 
         .skill-pill {
             background-color: var(--primary-light);
             color: var(--primary);
             border-radius: 20px;
-            padding: 0.25rem 0.75rem;
+            padding: 0.35rem 1rem;
             font-size: 0.875rem;
             font-weight: 500;
             display: inline-block;
             margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             transition: all 0.2s ease;
+            border: 1px solid transparent;
         }
 
         .skill-pill:hover {
             background-color: var(--primary);
             color: var(--white);
+            transform: scale(1.05);
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
         }
 
         .company-logo {
-            width: 48px;
-            height: 48px;
-            background-color: var(--light-gray);
-            border-radius: 8px;
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            color: var(--primary);
+            color: var(--white);
+            font-size: 1.25rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .company-logo::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            z-index: -1;
         }
 
         .scroll-indicator {
             position: fixed;
             top: 0;
             left: 0;
-            height: 3px;
-            background-color: var(--primary);
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
             z-index: 999;
             width: 0%;
         }
 
         .language-level {
-            height: 4px;
+            height: 6px;
             background-color: var(--light-gray);
-            border-radius: 2px;
+            border-radius: 3px;
             overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .language-progress {
             height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 3px;
+            transition: width 1.5s ease-in-out;
+        }
+
+        .achievement-item {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .achievement-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
             background-color: var(--primary);
         }
 
-        @media (max-width: 768px) {
-            .experience-card, .education-card {
-                margin-bottom: 1.5rem;
-            }
+        .timeline-item {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 1.25rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            border: 2px solid var(--primary);
+            z-index: 1;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 14px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background-color: var(--border);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .bg-dots {
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .highlight-text {
+            position: relative;
+            display: inline;
+        }
+
+        .highlight-text::before {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: rgba(79, 70, 229, 0.2);
+            z-index: -1;
         }
 
         .fade-in {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
+
+        .custom-bullet {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 22px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 0.75rem;
+            border: 1px solid var(--primary);
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+            border: 4px solid white;
+        }
+
+        .sticky-sidebar {
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-pill {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-pill:hover, .nav-pill.active {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .nav-pill.active {
+            font-weight: 600;
+        }
+
+        .animated-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, rgba(79, 70, 229, 0.15) 25%, rgba(6, 182, 212, 0.15) 50%, rgba(79, 70, 229, 0.15) 75%);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            z-index: -1;
+        }
+
+        .mobile-nav-wrapper {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            padding: 0.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .mobile-nav-button {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .mobile-nav-button i {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .mobile-nav-button.active {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Adjust padding to account for mobile nav */
+        .mobile-padding-bottom {
+            padding-bottom: 5rem;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-nav-wrapper {
+                display: flex;
+            }
+
+            .experience-card, .education-card {
+                padding: 1.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .achievement-item {
+                padding-left: 1.25rem;
+            }
+
+            .achievement-item::before {
+                top: 0.5rem;
+                width: 6px;
+                height: 6px;
+            }
+
+            .section-title::after {
+                width: 30%;
+            }
+
+            .skill-pill {
+                padding: 0.25rem 0.75rem;
+                margin-right: 0.4rem;
+                margin-bottom: 0.6rem;
+                font-size: 0.8rem;
+            }
+
+            .company-logo {
+                width: 48px;
+                height: 48px;
+                font-size: 1.1rem;
+            }
+
+            .profile-pic {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+
+            .timeline-item {
+                padding-left: 22px;
+            }
+
+            .timeline-item::before {
+                width: 12px;
+                height: 12px;
+            }
+
+            .timeline-item::after {
+                left: 6px;
+                top: 12px;
+            }
+        }
+
+        /* Prevents horizontal overflow */
+        .container {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Fix for mobile browsers address bar */
+        @media screen and (max-height: 450px) and (orientation: landscape) {
+            .mobile-nav-wrapper {
+                position: static;
+            }
+            .mobile-padding-bottom {
+                padding-bottom: 1rem;
+            }
+        }
+
+        /* Adjust font sizes for very small screens */
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            h2 {
+                font-size: 1.25rem;
+            }
+            h3 {
+                font-size: 1.1rem;
+            }
+            .skill-pill {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.6rem;
+            }
+        }
     </style>
 </head>
-<body>
+<body class="bg-dots">
     <div class="scroll-indicator" id="scrollIndicator"></div>
+    <div class="animated-background"></div>
 
-    <div class="container mx-auto px-4 py-8 max-w-5xl">
-        <!-- Header -->
-        <header class="mb-12 fade-in">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-                <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-dark mb-2">Steven TO (杜子中)</h1>
-                    <p class="text-dark-light mb-4">Entrepreneurial leader with expertise in strategy, operations, and scaling businesses</p>
-                    <div class="flex flex-wrap items-center gap-4 text-sm text-gray">
-                        <a href="mailto:globe.stevento@gmail.com" class="flex items-center hover:text-primary transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                            globe.stevento@gmail.com
-                        </a>
-                        <a href="https://www.linkedin.com/in/tosteven" target="_blank" class="flex items-center hover:text-primary transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                            </svg>
-                            linkedin.com/in/tosteven
-                        </a>
-                        <span class="flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                            </svg>
-                            Global Citizen (China, APAC, US, Africa)
-                        </span>
+    <div class="container mx-auto px-4 py-8 md:py-12 max-w-6xl">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <!-- Sidebar -->
+            <div class="md:col-span-3 hidden md:block">
+                <div class="sticky-sidebar bg-white p-6 rounded-xl shadow-md">
+                    <div class="flex flex-col items-center mb-6">
+                        <div class="profile-pic mb-4">ST</div>
+                        <h2 class="text-xl font-bold">Steven TO</h2>
+                        <p class="text-gray text-sm">杜子中</p>
                     </div>
-                </div>
-                <div class="mt-4 md:mt-0">
-                    <span class="bg-primary-light text-primary px-4 py-2 rounded-full font-medium">
-                        17+ Years Experience
-                    </span>
-                </div>
-            </div>
-        </header>
-
-        <!-- Profile Summary -->
-        <section class="mb-12 fade-in">
-            <h2 class="section-title text-xl">Profile Summary</h2>
-            <p class="text-dark-light">
-                Steven believes in using business as a means to create social changes at scale. He is an entrepreneurial-minded individual who cuts across consulting and startup worlds. Over 17 years of work experience across cultures in China, APAC, US and Africa, he is known for his excellent team building capabilities and scaling businesses from 0-1-10.
-            </p>
-        </section>
-
-        <!-- Professional Experience -->
-        <section class="mb-12 fade-in">
-            <h2 class="section-title text-xl">Professional Experience</h2>
-            
-            <!-- Amazon -->
-            <div class="experience-card p-6 mb-6">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="company-logo flex-shrink-0">AMZ</div>
-                    <div class="flex-grow">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                            <h3 class="text-lg font-semibold">Amazon Advertising</h3>
-                            <div class="text-gray text-sm">2022 - Present | Beijing, China</div>
-                        </div>
-                        <h4 class="font-medium mb-2">APAC Marketing Director</h4>
-                        <p class="text-dark-light mb-4">
-                            Leading two strategic programs: RISING STARS (global brand marketing) and Asia Growth (strategic diversification from China). Managing 25 team members and US$18M annual budget.
-                        </p>
-                        <ul class="list-disc pl-5 text-dark-light mb-4">
-                            <li class="mb-2">Grew Asia advertiser revenue by 30% annually, exceeding US$500M by building the Asia Growth markets team from scratch</li>
-                            <li class="mb-2">Administered RISING STARS business transformation program, uplifting Amazon Ads' awareness from #5 to #1 in 3 years</li>
-                            <li class="mb-2">Selected into Bar Raiser program (only 2% of Amazonians) and conducted hundreds of interviews</li>
-                            <li>Recognized as Top Talent (TT) in Amazon (Top 10% of cohort)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Onion Academy -->
-            <div class="experience-card p-6 mb-6">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="company-logo flex-shrink-0">OA</div>
-                    <div class="flex-grow">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                            <h3 class="text-lg font-semibold">Onion Academy (Series-D edtech startup)</h3>
-                            <div class="text-gray text-sm">2018 - 2022 | Beijing, China</div>
-                        </div>
-                        <h4 class="font-medium mb-2">Chief Operations Officer (Promoted from VP Strategy & Ops)</h4>
-                        <p class="text-dark-light mb-4">
-                            Leading edtech company serving over 60 million students and 1 million teachers in China.
-                        </p>
-                        <ul class="list-disc pl-5 text-dark-light mb-4">
-                            <li class="mb-2">Built eight business and functional teams from scratch, managing growth from 100 to 1000+ employees</li>
-                            <li class="mb-2">Grew new business by 600% to CNY42M annual revenue with 80% renewal rate (vs 50-70% industry standard)</li>
-                            <li class="mb-2">Led and closed Series D financing (CNY$300M), managing investor relationships and due diligence</li>
-                            <li class="mb-2">Managed annual budget of CNY400M by establishing FP&A practices from scratch</li>
-                            <li>Implemented strategic initiatives resulting in 30%+ incremental revenue through new product development</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- The Wilson Initiative -->
-            <div class="experience-card p-6 mb-6">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="company-logo flex-shrink-0">TWI</div>
-                    <div class="flex-grow">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                            <h3 class="text-lg font-semibold">The Wilson Initiative</h3>
-                            <div class="text-gray text-sm">2017 - 2021 | Accra, Ghana</div>
-                        </div>
-                        <h4 class="font-medium mb-2">Founder & CEO</h4>
-                        <p class="text-dark-light mb-4">
-                            Co-founded a microfinance program providing hire purchase options to taxi drivers in Accra, Ghana.
-                        </p>
-                        <ul class="list-disc pl-5 text-dark-light mb-4">
-                            <li>Scaled from 0 to 27 taxis in 1.5 years, providing drivers with a pathway to vehicle ownership</li>
-                            <li>Developed a sustainable weekly installment program allowing drivers to own taxis within 2.5 years</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Tink Labs -->
-            <div class="experience-card p-6 mb-6">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="company-logo flex-shrink-0">TL</div>
-                    <div class="flex-grow">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                            <h3 class="text-lg font-semibold">Tink Labs (Series-C travel-tech startup, unicorn)</h3>
-                            <div class="text-gray text-sm">2017 - 2018 | Global</div>
-                        </div>
-                        <h4 class="font-medium mb-2">Global Head of Sales (Promoted from Africa MD)</h4>
-                        <p class="text-dark-light mb-4">
-                            Leading provider of customized smartphone systems for the hospitality industry across Africa, Latin America, APAC and Europe.
-                        </p>
-                        <ul class="list-disc pl-5 text-dark-light mb-4">
-                            <li class="mb-2">Gained 10-25% market share in under a year by establishing operations in South Africa, Kenya, Ghana, Morocco and Mauritius</li>
-                            <li>Assumed P&L responsibilities for 38 countries, leading 120 staff globally and achieving >US$100M contract value through strategic pricing and sales tactics</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- BCG -->
-            <div class="experience-card p-6">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="company-logo flex-shrink-0">BCG</div>
-                    <div class="flex-grow">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                            <h3 class="text-lg font-semibold">Boston Consulting Group (BCG)</h3>
-                            <div class="text-gray text-sm">2008 - 2017 | Hong Kong, Greater China</div>
-                        </div>
-                        <h4 class="font-medium mb-2">Project Leader</h4>
-                        <p class="text-dark-light mb-4">
-                            Top 10% in Greater China PL Cohort, focusing on Financial Services, Technology and Social Impact.
-                        </p>
-                        <ul class="list-disc pl-5 text-dark-light mb-4">
-                            <li class="mb-2">Led over 20 strategic projects serving state-owned enterprises, multinational corporations, and private companies</li>
-                            <li>Spearheaded Greater China social impact projects, facilitating collaboration between BCG consultants, NGOs, and social enterprises</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Education -->
-        <section class="mb-12 fade-in">
-            <h2 class="section-title text-xl">Education</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="education-card p-6">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                        <h3 class="text-lg font-semibold">Kellogg School of Management, Northwestern University</h3>
-                        <div class="text-gray text-sm">2012 - 2013</div>
-                    </div>
-                    <p class="text-dark-light">MBA Graduate</p>
-                    <p class="text-gray mt-2">Major: Social Enterprise at Kellogg (SEEK), Marketing, Management & Organizations</p>
-                    <p class="text-gray">Evanston, United States</p>
-                </div>
-                
-                <div class="education-card p-6">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                        <h3 class="text-lg font-semibold">Chinese University of Hong Kong</h3>
-                        <div class="text-gray text-sm">2005 - 2008</div>
-                    </div>
-                    <p class="text-dark-light">Bachelor of Business Administration</p>
-                    <p class="text-gray mt-2">First class honors (Top 7% in business faculty)</p>
-                    <p class="text-gray">Hong Kong, Copenhagen, Chapel Hill</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills & Interests -->
-        <section class="mb-12 fade-in">
-            <h2 class="section-title text-xl">Skills & Interests</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="experience-card p-6">
-                    <h3 class="text-lg font-semibold mb-4">Professional Skills</h3>
-                    <div class="flex flex-wrap">
-                        <span class="skill-pill">Strategic Leadership</span>
-                        <span class="skill-pill">Business Development</span>
-                        <span class="skill-pill">Team Building</span>
-                        <span class="skill-pill">P&L Management</span>
-                        <span class="skill-pill">Scaling Operations</span>
-                        <span class="skill-pill">International Business</span>
-                        <span class="skill-pill">Cross-Cultural Management</span>
-                        <span class="skill-pill">Startup Growth</span>
-                    </div>
-                </div>
-                
-                <div class="experience-card p-6">
-                    <h3 class="text-lg font-semibold mb-4">Languages</h3>
                     
-                    <div class="mb-3">
-                        <div class="flex justify-between mb-1">
-                            <span>Cantonese</span>
-                            <span class="text-sm text-gray">Native</span>
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-envelope text-primary mr-2"></i>
+                            <a href="mailto:globe.stevento@gmail.com" class="text-sm hover:text-primary transition-colors">globe.stevento@gmail.com</a>
                         </div>
-                        <div class="language-level">
-                            <div class="language-progress" style="width: 100%"></div>
+                        <div class="flex items-center mb-2">
+                            <i class="fab fa-linkedin text-primary mr-2"></i>
+                            <a href="https://www.linkedin.com/in/tosteven" target="_blank" class="text-sm hover:text-primary transition-colors">linkedin.com/in/tosteven</a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-globe text-primary mr-2"></i>
+                            <span class="text-sm">Global Citizen</span>
                         </div>
                     </div>
                     
-                    <div class="mb-3">
-                        <div class="flex justify-between mb-1">
-                            <span>English</span>
-                            <span class="text-sm text-gray">Proficient</span>
-                        </div>
-                        <div class="language-level">
-                            <div class="language-progress" style="width: 95%"></div>
-                        </div>
+                    <div class="border-t border-gray-200 pt-4 mb-6">
+                        <h3 class="font-semibold mb-3">Navigate</h3>
+                        <ul>
+                            <li class="mb-2"><a href="#profile" class="nav-pill block active">Profile</a></li>
+                            <li class="mb-2"><a href="#experience" class="nav-pill block">Experience</a></li>
+                            <li class="mb-2"><a href="#education" class="nav-pill block">Education</a></li>
+                            <li><a href="#skills" class="nav-pill block">Skills & Interests</a></li>
+                        </ul>
                     </div>
                     
-                    <div class="mb-3">
-                        <div class="flex justify-between mb-1">
-                            <span>Mandarin</span>
-                            <span class="text-sm text-gray">Proficient</span>
+                    <div class="border-t border-gray-200 pt-4">
+                        <h3 class="font-semibold mb-3">Languages</h3>
+                        <div class="mb-3">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm">Cantonese</span>
+                                <span class="text-xs text-gray">Native</span>
+                            </div>
+                            <div class="language-level">
+                                <div class="language-progress" style="width: 0%"></div>
+                            </div>
                         </div>
-                        <div class="language-level">
-                            <div class="language-progress" style="width: 95%"></div>
+                        
+                        <div class="mb-3">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm">English</span>
+                                <span class="text-xs text-gray">Proficient</span>
+                            </div>
+                            <div class="language-level">
+                                <div class="language-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm">Mandarin</span>
+                                <span class="text-xs text-gray">Proficient</span>
+                            </div>
+                            <div class="language-level">
+                                <div class="language-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm">Spanish</span>
+                                <span class="text-xs text-gray">Beginner</span>
+                            </div>
+                            <div class="language-level">
+                                <div class="language-progress" style="width: 0%"></div>
+                            </div>
                         </div>
                     </div>
-                    
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="md:col-span-9 mobile-padding-bottom">
+                <!-- Header for Mobile -->
+                <div class="md:hidden flex items-center mb-8">
+                    <div class="profile-pic mr-4">ST</div>
                     <div>
-                        <div class="flex justify-between mb-1">
-                            <span>Spanish</span>
-                            <span class="text-sm text-gray">Beginner</span>
-                        </div>
-                        <div class="language-level">
-                            <div class="language-progress" style="width: 25%"></div>
-                        </div>
+                        <h1 class="text-2xl font-bold">Steven TO (杜子中)</h1>
+                        <p class="text-dark-light">Entrepreneurial Leader</p>
                     </div>
                 </div>
-                
-                <div class="experience-card p-6">
-                    <h3 class="text-lg font-semibold mb-4">Interests & Publications</h3>
-                    <ul class="text-dark-light">
-                        <li class="mb-2">Author: China vs the West series</li>
-                        <li class="mb-2">Author: Amazon_Explained</li>
-                        <li class="mb-2">Author: AI literacy</li>
-                        <li class="mb-2">Reading, Writing, Squash</li>
-                        <li class="mb-2">Cycling, Traveling</li>
-                        <li>Investment</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
 
-        <!-- Footer -->
-        <footer class="text-center text-gray text-sm pt-8 pb-12 fade-in">
-            <p>&copy; 2025 Steven TO (杜子中) | Last Updated: March 2025</p>
-        </footer>
+                <!-- Header -->
+                <header id="profile" class="mb-8 md:mb-12 glass-card p-6 md:p-8 rounded-2xl fade-in">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-6">
+                        <div>
+                            <h1 class="text-2xl md:text-4xl font-bold mb-2 hidden md:block">
+                                <span class="highlight-text">Steven TO</span> (杜子中)
+                            </h1>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge gradient-bg text-white px-3 py-1 rounded-full text-sm font-medium">17+ Years Experience</span>
+                                <span class="badge bg-primary-light text-primary px-3 py-1 rounded-full text-sm font-medium">Entrepreneurial Leader</span>
+                                <span class="badge bg-primary-light text-primary px-3 py-1 rounded-full text-sm font-medium hidden md:inline-block">Global Business</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-dark-light text-base md:text-lg">
+                        Steven believes in using <span class="highlight-text">business as a means to create social changes at scale</span>. He is an entrepreneurial-minded individual who cuts across consulting and startup worlds. Over 17 years of work experience across cultures in China, APAC, US and Africa, he is known for his excellent team building capabilities and scaling businesses from 0-1-10.
+                    </p>
+                </header>
+
+                <!-- Professional Experience -->
+                <section id="experience" class="mb-8 md:mb-12 fade-in">
+                    <h2 class="section-title text-xl md:text-2xl">Professional Experience</h2>
+                    
+                    <!-- Amazon -->
+                    <div class="experience-card p-5 md:p-8 mb-6 md:mb-8">
+                        <div class="flex flex-col md:flex-row gap-4 md:gap-6">
+                            <div class="company-logo flex-shrink-0">AMZ</div>
+                            <div class="flex-grow">
+                                <div class="flex flex-col md:flex-row md:items-center justify-between mb-3">
+                                    <h3 class="text-lg md:text-xl font-semibold">Amazon Advertising</h3>
+                                    <div class="text-gray text-xs md:text-sm font-medium px-3 py-1 bg-gray-100 rounded-full inline-block mt-1 md:mt-0">2022 - Present</div>
+                                </div>
+                                <h4 class="font-medium mb-2 text-primary">APAC Marketing Director</h4>
+                                <div class="mb-1 text-xs text-gray">Beijing, China</div>
+                                <p class="text-dark-light text-sm md:text-base mb-4">
+                                    Leading two strategic programs: RISING STARS (global brand marketing) and Asia Growth (strategic diversification from China). Managing 25 team members and US$18M annual budget.
+                                </p>
+                                <h5 class="font-medium text-dark mb-2 text-sm md:text-base">Key Achievements</h5>
+                                <ul class="space-y-2 md:space-y-3 text-dark-light text-sm md:text-base">
+                                    <li class="achievement-item">
+                                        <strong>Revenue Growth:</strong> Grew Asia advertiser revenue by 30% annually, exceeding US$500M
+                                    </li>
+                                    <li class="achievement-item">
+                                        <strong>Business Transformation:</strong> Uplifted Amazon Ads' awareness from #5 to #1 in 3 years
+                                    </li>
+                                    <li class="achievement-item">
+                                        <strong>Leadership Excellence:</strong> Selected into Bar Raiser program (only 2% of Amazonians)
+                                    </li>
+                                    <li class="achievement-item">
+                                        <strong>Recognition:</strong> Top Talent (TT) in Amazon (Top 10% of cohort)
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Onion Academy -->
+                    <div class="experience-card p-5 md:p-8 mb-6 md:mb-8">
+                        <div class="flex flex-col md:flex-row gap-4 md:gap-6">
+                            <div class="company-logo flex-shrink-0">OA</div>
+                            <div class="flex-grow">
+                                <div class="flex flex-col md:flex-row md:items-center justify-between mb-3">
+                                    <h3 class="text-lg md:text-xl font-semibold">Onion Academy</h3>
+                                    <div class="text-gray text-xs md:text-sm font-medium px-3 py-1 bg-gray-100 rounded-full inline-block mt-1 md:mt-0">2018 - 2022</div>
+                                </div>
+                                <h4 class="font-medium mb-2 text-primary">Chief Operations Officer</h4>
+                                <div class="text-xs text-gray mb-1">Promoted from VP Strategy & Ops | Beijing, China</div>
+                                <div class="inline-block px-3 py-1 rounded-full bg-primary-light text-primary text-xs font-medium mb-4">Series-D EdTech Startup</div>
+                                <p class="text-dark-light text-sm md:text-base mb-4">
+                                    Leading edtech company serving over 60 million students and 1 million teachers in China.
+                                </p>
+                                <h5 class="font-medium text-dark mb-2 text-sm md:text-base">Key Achievements</h5>
+                                <ul class="space-y-2 md:space-y-3 text-dark-light text-sm md:text-base">
+                                    <li class="achievement-item">
+                                        <strong>Team Building:</strong> Built eight business teams from scratch, growing from 100 to 1000+ employees
+                                    </li>
+                                    <li class="achievement-item">
+                                        <strong>Business Growth:</strong> Grew new business by 600% to CNY42M annual revenue
+                                    </li>
+                                    <li class="achievement-item">
+                                        <strong>Fundraising:</strong> Led and closed Series D financing (CNY$300M)
+                                    </li>
+                                    <li class="achievement-item">
+                                        <strong>Financial Management:</strong> Managed annual budget of CNY400M
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- The Wilson Initiative -->
+                    <div class="experience-card p-5 md:p-8 mb-6 md:mb-8">
+                        <div class="flex flex-col md:flex-row gap-4 md:gap-6">
+                            <div class="company-logo flex-shrink-0">TWI</div>
+                            <div class="flex-grow">
+                                <div class="flex flex-col md:flex-row md:items-center justify-between mb-3">
+                                    <h3 class="text-lg md:text-xl font-semibold">The Wilson Initiative</h3>
+                                    <div class="text-gray text-xs md:text-sm font-medium px-3 py-1 bg-gray-100 rounded-full inline-block mt-1 md:mt-0">2017 - 2021</div>
+                                </div>
+                                <h4 class="font-medium mb-2 text-primary">Founder & CEO</h4>
+                                <div class="text-xs text-gray mb-1">Accra, Ghana</div>
+                                <div class="inline-block px-3 py-1 rounded-full bg-primary-light text-primary text-xs font-medium mb-4">Social Enterprise</div>
+                                <p class="text-dark-light text-sm md:text-base mb-4">
+                                    Co-founded a microfinance program providing hire purchase options to taxi drivers in Ghana.
+                                </p>
+                                <h5 class="font-medium text-dark mb-2 text-sm md:text-base">Key Achievements</h5>
+                                <ul class="space-y-2 md:space-y-3 text-dark-light text-sm md:text-base">
+                                    <li class="achievement-item">
+                                        <strong>Rapid Scaling:</strong> Scaled from 0 to 27 taxis in 1.5 years
+                                    </li>
+                                    <li class="achievement-item">
+                                        <strong>Financial Innovation:</strong> Developed a sustainable weekly installment program
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tink Labs -->
+                    <div class="experience-card p-5 md:p-8 mb-6 md:mb-8">
+                        <div class="flex flex-col md:flex-row gap-4 md:gap-6">
+                            <div class="company-logo flex-shrink-0">TL</div>
+                            <div class="flex-grow">
+                                <div class="flex flex-col md:flex-row md:items-center justify-between mb-3">
+                                    <h3 class="text-lg md:text-xl font-semibold">Tink Labs (handy)</h3>
+                                    <div class="text-gray text-xs md:text-sm font-medium px-3 py-1 bg-gray-100 rounded-full inline-block mt-1 md:mt-0">2017 - 2018</div>
+                                </div>
+                                <h4 class="font-medium mb-2 text-primary">Global Head of Sales</h4>
+                                <div class="text-xs text-gray mb-1">Promoted from Africa MD | Global</div>
+                                <div class="inline-block px-3 py-1 rounded-full bg-primary-light text-primary text-xs font-medium mb-4">Series-C Travel-Tech Unicorn</div>
+                                <p class="text-dark-light text-sm md:text-base mb-4">
+                                    Leading provider of smartphone systems for the hospitality industry worldwide.
+                                </p>
+                                <h5 class="font-medium text-dark mb-2 text-sm md:text-base">Key Achievements</h5>
+                                <ul class="space-y-2 md:space-y-3 text-dark-light text-sm md:text-base">
+                                    <li class="achievement-item">
+                                        <strong>Market Penetration:</strong> Gained 10-25% market share in under a year
+                                    </li>
+                                    <li class="achievement-item">
+                                        <strong>Global Leadership:</strong> Led 120 staff across 38 countries with >US$100M contract value
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- BCG -->
+                    <div class="experience-card p-5 md:p-8">
+                        <div class="flex flex-col md:flex-row gap-4 md:gap-6">
+                            <div class="company-logo flex-shrink-0">BCG</div>
+                            <div class="flex-grow">
+                                <div class="flex flex-col md:flex-row md:items-center justify-between mb-3">
+                                    <h3 class="text-lg md:text-xl font-semibold">Boston Consulting Group</h3>
+                                    <div class="text-gray text-xs md:text-sm font-medium px-3 py-1 bg-gray-100 rounded-full inline-block mt-1 md:mt-0">2008 - 2017</div>
+                                </div>
+                                <h4 class="font-medium mb-2 text-primary">Project Leader</h4>
+                                <div class="text-xs text-gray mb-1">Hong Kong, Greater China</div>
+                                <div class="inline-block px-3 py-1 rounded-full bg-primary-light text-primary text-xs font-medium mb-4">Strategy Consulting</div>
+                                <p class="text-dark-light text-sm md:text-base mb-4">
+                                    Top 10% in Greater China PL Cohort, focusing on Financial Services, Technology and Social Impact.
+                                </p>
+                                <h5 class="font-medium text-dark mb-2 text-sm md:text-base">Key Achievements</h5>
+                                <ul class="space-y-2 md:space-y-3 text-dark-light text-sm md:text-base">
+                                    <li class="achievement-item">
+                                        <strong>Strategic Leadership:</strong> Led over 20 strategic projects across diverse industries
+                                    </li>
+                                    <li class="achievement-item">
+                                        <strong>Social Impact:</strong> Spearheaded Greater China social impact initiatives
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Career Timeline (Visual) -->
+                <section class="mb-8 md:mb-12 fade-in">
+                    <div class="glass-card p-5 md:p-8 rounded-2xl">
+                        <h2 class="text-lg md:text-xl font-semibold mb-4 md:mb-6">Career Journey</h2>
+                        <div class="relative">
+                            <div class="timeline-item">
+                                <div class="flex justify-between mb-1">
+                                    <h3 class="font-medium text-sm md:text-base">Amazon Advertising</h3>
+                                    <span class="text-gray text-xs md:text-sm">2022 - Present</span>
+                                </div>
+                                <p class="text-dark-light text-xs md:text-sm">APAC Marketing Director</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="flex justify-between mb-1">
+                                    <h3 class="font-medium text-sm md:text-base">Onion Academy</h3>
+                                    <span class="text-gray text-xs md:text-sm">2018 - 2022</span>
+                                </div>
+                                <p class="text-dark-light text-xs md:text-sm">Chief Operations Officer</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="flex justify-between mb-1">
+                                    <h3 class="font-medium text-sm md:text-base">The Wilson Initiative</h3>
+                                    <span class="text-gray text-xs md:text-sm">2017 - 2021</span>
+                                </div>
+                                <p class="text-dark-light text-xs md:text-sm">Founder & CEO</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="flex justify-between mb-1">
+                                    <h3 class="font-medium text-sm md:text-base">Tink Labs (handy)</h3>
+                                    <span class="text-gray text-xs md:text-sm">2017 - 2018</span>
+                                </div>
+                                <p class="text-dark-light text-xs md:text-sm">Global Head of Sales</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="flex justify-between mb-1">
+                                    <h3 class="font-medium text-sm md:text-base">Boston Consulting Group</h3>
+                                    <span class="text-gray text-xs md:text-sm">2008 - 2017</span>
+                                </div>
+                                <p class="text-dark-light text-xs md:text-sm">Project Leader</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Education -->
+                <section id="education" class="mb-8 md:mb-12 fade-in">
+                    <h2 class="section-title text-xl md:text-2xl">Education</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                        <div class="education-card p-5 md:p-6 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-20 h-20 md:w-24 md:h-24 opacity-10">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                    <path d="M12 14L11.2929 14.7071L12 15.4142L12.7071 14.7071L12 14ZM3 14L11.2929 14.7071L12 14L3 14ZM12.7071 14.7071L21 14L12 14L12.7071 14.7071ZM3 15H12V13H3V15ZM12 15H21V13H12V15ZM11 6.5V14H13V6.5H11Z" fill="currentColor"/>
+                                    <path d="M4 19L20 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-2 md:mb-3">
+                                <h3 class="text-base md:text-lg font-semibold">Northwestern University</h3>
+                                <div class="text-gray text-xs md:text-sm font-medium px-2 md:px-3 py-1 bg-gray-100 rounded-full inline-block mt-1 md:mt-0">2012 - 2013</div>
+                            </div>
+                            <h4 class="font-medium text-primary mb-1 text-sm md:text-base">Kellogg School of Management</h4>
+                            <p class="text-dark-light mb-2 md:mb-3 text-sm md:text-base">MBA Graduate</p>
+                            <div class="text-gray text-xs md:text-sm mb-1">
+                                <i class="fas fa-book-open mr-2 text-primary"></i>Major: SEEK, Marketing, Management
+                            </div>
+                            <div class="text-gray text-xs md:text-sm">
+                                <i class="fas fa-map-marker-alt mr-2 text-primary"></i>Evanston, United States
+                            </div>
+                        </div>
+                        
+                        <div class="education-card p-5 md:p-6 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-20 h-20 md:w-24 md:h-24 opacity-10">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                    <path d="M12 14L11.2929 14.7071L12 15.4142L12.7071 14.7071L12 14ZM3 14L11.2929 14.7071L12 14L3 14ZM12.7071 14.7071L21 14L12 14L12.7071 14.7071ZM3 15H12V13H3V15ZM12 15H21V13H12V15ZM11 6.5V14H13V6.5H11Z" fill="currentColor"/>
+                                    <path d="M4 19L20 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-2 md:mb-3">
+                                <h3 class="text-base md:text-lg font-semibold">Chinese University of Hong Kong</h3>
+                                <div class="text-gray text-xs md:text-sm font-medium px-2 md:px-3 py-1 bg-gray-100 rounded-full inline-block mt-1 md:mt-0">2005 - 2008</div>
+                            </div>
+                            <h4 class="font-medium text-primary mb-1 text-sm md:text-base">Bachelor of Business Administration</h4>
+                            <div class="inline-block px-2 md:px-3 py-1 rounded-full bg-primary-light text-primary text-xs font-medium mb-2 md:mb-3">First class honors (Top 7%)</div>
+                            <div class="text-gray text-xs md:text-sm">
+                                <i class="fas fa-map-marker-alt mr-2 text-primary"></i>Hong Kong, Copenhagen, Chapel Hill
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Skills & Interests -->
+                <section id="skills" class="mb-8 md:mb-12 fade-in">
+                    <h2 class="section-title text-xl md:text-2xl">Skills & Interests</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                        <div class="experience-card p-5 md:p-6">
+                            <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4 flex items-center">
+                                <i class="fas fa-star text-primary mr-2"></i>Professional Skills
+                            </h3>
+                            <div class="flex flex-wrap">
+                                <span class="skill-pill"><i class="fas fa-chess mr-1"></i>Strategic Leadership</span>
+                                <span class="skill-pill"><i class="fas fa-chart-line mr-1"></i>Business Development</span>
+                                <span class="skill-pill"><i class="fas fa-users mr-1"></i>Team Building</span>
+                                <span class="skill-pill"><i class="fas fa-balance-scale mr-1"></i>P&L Management</span>
+                                <span class="skill-pill"><i class="fas fa-expand-arrows-alt mr-1"></i>Scaling Operations</span>
+                                <span class="skill-pill"><i class="fas fa-globe mr-1"></i>International Business</span>
+                                <span class="skill-pill"><i class="fas fa-handshake mr-1"></i>Cross-Cultural Management</span>
+                                <span class="skill-pill"><i class="fas fa-rocket mr-1"></i>Startup Growth</span>
+                            </div>
+
+                            <h3 class="text-base md:text-lg font-semibold mt-5 md:mt-6 mb-3 md:mb-4 flex items-center">
+                                <i class="fas fa-lightbulb text-primary mr-2"></i>Interests
+                            </h3>
+                            <div class="flex flex-wrap">
+                                <span class="skill-pill"><i class="fas fa-book mr-1"></i>Reading</span>
+                                <span class="skill-pill"><i class="fas fa-pen mr-1"></i>Writing</span>
+                                <span class="skill-pill"><i class="fas fa-table-tennis mr-1"></i>Squash</span>
+                                <span class="skill-pill"><i class="fas fa-bicycle mr-1"></i>Cycling</span>
+                                <span class="skill-pill"><i class="fas fa-plane mr-1"></i>Traveling</span>
+                                <span class="skill-pill"><i class="fas fa-chart-pie mr-1"></i>Investment</span>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-card p-5 md:p-6">
+                            <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4 flex items-center">
+                                <i class="fas fa-pen-fancy text-primary mr-2"></i>Publications
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="custom-bullet flex-shrink-0 mt-1">1</span>
+                                    <div>
+                                        <strong class="text-sm md:text-base">China vs the West series</strong>
+                                        <p class="text-dark-light text-xs md:text-sm">Comparative analysis of business practices</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="custom-bullet flex-shrink-0 mt-1">2</span>
+                                    <div>
+                                        <strong class="text-sm md:text-base">Amazon_Explained</strong>
+                                        <p class="text-dark-light text-xs md:text-sm">Insights into Amazon's management principles</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="custom-bullet flex-shrink-0 mt-1">3</span>
+                                    <div>
+                                        <strong class="text-sm md:text-base">AI literacy</strong>
+                                        <p class="text-dark-light text-xs md:text-sm">Educational content on AI in business</p>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <h3 class="text-base md:text-lg font-semibold mt-5 md:mt-6 mb-3 md:mb-4 flex items-center">
+                                <i class="fas fa-language text-primary mr-2"></i>Languages
+                            </h3>
+                            <div class="md:hidden">
+                                <div class="mb-3">
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm">Cantonese</span>
+                                        <span class="text-xs text-gray">Native</span>
+                                    </div>
+                                    <div class="language-level">
+                                        <div class="language-progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm">English</span>
+                                        <span class="text-xs text-gray">Proficient</span>
+                                    </div>
+                                    <div class="language-level">
+                                        <div class="language-progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm">Mandarin</span>
+                                        <span class="text-xs text-gray">Proficient</span>
+                                    </div>
+                                    <div class="language-level">
+                                        <div class="language-progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm">Spanish</span>
+                                        <span class="text-xs text-gray">Beginner</span>
+                                    </div>
+                                    <div class="language-level">
+                                        <div class="language-progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Summary Statement -->
+                <section class="mb-8 md:mb-12 fade-in">
+                    <div class="gradient-bg p-5 md:p-8 rounded-2xl text-white">
+                        <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">Professional Philosophy</h2>
+                        <p class="italic text-sm md:text-base">
+                            "I believe in using business as a means to create social changes at scale. My career spans consulting, startups, and corporate leadership roles across multiple continents, bringing a unique global perspective to every challenge. I'm passionate about building teams that can scale from 0-1-10 and creating innovative solutions that drive both business success and positive social impact."
+                        </p>
+                        <p class="text-right mt-2 text-sm md:text-base">— Steven TO</p>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="text-center text-gray text-xs md:text-sm pt-4 pb-8 md:pb-12 fade-in">
+                    <p>&copy; 2025 Steven TO (杜子中) | Last Updated: March 2025</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav-wrapper">
+        <a href="#profile" class="mobile-nav-button active">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+        <a href="#experience" class="mobile-nav-button">
+            <i class="fas fa-briefcase"></i>
+            <span>Experience</span>
+        </a>
+        <a href="#education" class="mobile-nav-button">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Education</span>
+        </a>
+        <a href="#skills" class="mobile-nav-button">
+            <i class="fas fa-star"></i>
+            <span>Skills</span>
+        </a>
     </div>
 
     <script>
@@ -422,17 +984,107 @@
                     }
                 });
             }, {
-                threshold: 0.1
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
             });
             
             fadeElements.forEach(element => {
                 observer.observe(element);
                 
                 // Set a slight delay based on element position to create a cascade effect
-                const delay = Array.from(fadeElements).indexOf(element) * 0.1;
+                const delay = Array.from(fadeElements).indexOf(element) * 0.15;
                 element.style.transitionDelay = `${delay}s`;
             });
+
+            // Animate language bars after a delay
+            setTimeout(() => {
+                const progressBars = document.querySelectorAll('.language-progress');
+                progressBars[0].style.width = '100%'; // Cantonese
+                progressBars[1].style.width = '95%';  // English
+                progressBars[2].style.width = '95%';  // Mandarin
+                progressBars[3].style.width = '25%';  // Spanish
+                
+                // For mobile view
+                if (progressBars.length > 4) {
+                    progressBars[4].style.width = '100%'; // Cantonese
+                    progressBars[5].style.width = '95%';  // English
+                    progressBars[6].style.width = '95%';  // Mandarin
+                    progressBars[7].style.width = '25%';  // Spanish
+                }
+            }, 800);
         });
+
+        // Active navigation highlighting - both desktop and mobile
+        const sections = document.querySelectorAll('section[id], header[id]');
+        const navLinks = document.querySelectorAll('.nav-pill');
+        const mobileNavButtons = document.querySelectorAll('.mobile-nav-button');
+
+        function updateActiveNavigation() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            // Update desktop navigation
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update mobile navigation
+            mobileNavButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.getAttribute('href').slice(1) === current) {
+                    button.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNavigation);
+        window.addEventListener('resize', updateActiveNavigation);
+        window.addEventListener('load', updateActiveNavigation);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                // Calculate position to scroll to (accounting for mobile nav)
+                const isMobile = window.innerWidth < 768;
+                const mobileNavHeight = isMobile ? document.querySelector('.mobile-nav-wrapper').offsetHeight : 0;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Handle orientation changes
+        window.addEventListener('orientationchange', function() {
+            // Small delay to let the resize complete
+            setTimeout(() => {
+                updateActiveNavigation();
+            }, 200);
+        });
+
+        // Fix for iOS Safari bouncing effect
+        document.addEventListener('touchmove', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
     </script>
 </body>
 </html>
