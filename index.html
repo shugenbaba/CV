@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steven TO | CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #3F75FF;
+            --primary-light: #EBF1FF;
+            --dark: #1C2033;
+            --dark-light: #4D5370;
+            --gray: #8A94A6;
+            --light-gray: #F7F9FC;
+            --white: #FFFFFF;
+            --border: #E5E9F2;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: var(--light-gray);
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: -4px;
+            left: 0;
+        }
+
+        .experience-card, .education-card {
+            background-color: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .experience-card:hover, .education-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-light);
+        }
+
+        .skill-pill {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .skill-pill:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .company-logo {
+            width: 48px;
+            height: 48px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background-color: var(--primary);
+            z-index: 999;
+            width: 0%;
+        }
+
+        .language-level {
+            height: 4px;
+            background-color: var(--light-gray);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .language-progress {
+            height: 100%;
+            background-color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .experience-card, .education-card {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <!-- Header -->
+        <header class="mb-12 fade-in">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-dark mb-2">Steven TO (杜子中)</h1>
+                    <p class="text-dark-light mb-4">Entrepreneurial leader with expertise in strategy, operations, and scaling businesses</p>
+                    <div class="flex flex-wrap items-center gap-4 text-sm text-gray">
+                        <a href="mailto:globe.stevento@gmail.com" class="flex items-center hover:text-primary transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            globe.stevento@gmail.com
+                        </a>
+                        <a href="https://www.linkedin.com/in/tosteven" target="_blank" class="flex items-center hover:text-primary transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                            linkedin.com/in/tosteven
+                        </a>
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            Global Citizen (China, APAC, US, Africa)
+                        </span>
+                    </div>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <span class="bg-primary-light text-primary px-4 py-2 rounded-full font-medium">
+                        17+ Years Experience
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Profile Summary -->
+        <section class="mb-12 fade-in">
+            <h2 class="section-title text-xl">Profile Summary</h2>
+            <p class="text-dark-light">
+                Steven believes in using business as a means to create social changes at scale. He is an entrepreneurial-minded individual who cuts across consulting and startup worlds. Over 17 years of work experience across cultures in China, APAC, US and Africa, he is known for his excellent team building capabilities and scaling businesses from 0-1-10.
+            </p>
+        </section>
+
+        <!-- Professional Experience -->
+        <section class="mb-12 fade-in">
+            <h2 class="section-title text-xl">Professional Experience</h2>
+            
+            <!-- Amazon -->
+            <div class="experience-card p-6 mb-6">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="company-logo flex-shrink-0">AMZ</div>
+                    <div class="flex-grow">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="text-lg font-semibold">Amazon Advertising</h3>
+                            <div class="text-gray text-sm">2022 - Present | Beijing, China</div>
+                        </div>
+                        <h4 class="font-medium mb-2">APAC Marketing Director</h4>
+                        <p class="text-dark-light mb-4">
+                            Leading two strategic programs: RISING STARS (global brand marketing) and Asia Growth (strategic diversification from China). Managing 25 team members and US$18M annual budget.
+                        </p>
+                        <ul class="list-disc pl-5 text-dark-light mb-4">
+                            <li class="mb-2">Grew Asia advertiser revenue by 30% annually, exceeding US$500M by building the Asia Growth markets team from scratch</li>
+                            <li class="mb-2">Administered RISING STARS business transformation program, uplifting Amazon Ads' awareness from #5 to #1 in 3 years</li>
+                            <li class="mb-2">Selected into Bar Raiser program (only 2% of Amazonians) and conducted hundreds of interviews</li>
+                            <li>Recognized as Top Talent (TT) in Amazon (Top 10% of cohort)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Onion Academy -->
+            <div class="experience-card p-6 mb-6">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="company-logo flex-shrink-0">OA</div>
+                    <div class="flex-grow">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="text-lg font-semibold">Onion Academy (Series-D edtech startup)</h3>
+                            <div class="text-gray text-sm">2018 - 2022 | Beijing, China</div>
+                        </div>
+                        <h4 class="font-medium mb-2">Chief Operations Officer (Promoted from VP Strategy & Ops)</h4>
+                        <p class="text-dark-light mb-4">
+                            Leading edtech company serving over 60 million students and 1 million teachers in China.
+                        </p>
+                        <ul class="list-disc pl-5 text-dark-light mb-4">
+                            <li class="mb-2">Built eight business and functional teams from scratch, managing growth from 100 to 1000+ employees</li>
+                            <li class="mb-2">Grew new business by 600% to CNY42M annual revenue with 80% renewal rate (vs 50-70% industry standard)</li>
+                            <li class="mb-2">Led and closed Series D financing (CNY$300M), managing investor relationships and due diligence</li>
+                            <li class="mb-2">Managed annual budget of CNY400M by establishing FP&A practices from scratch</li>
+                            <li>Implemented strategic initiatives resulting in 30%+ incremental revenue through new product development</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- The Wilson Initiative -->
+            <div class="experience-card p-6 mb-6">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="company-logo flex-shrink-0">TWI</div>
+                    <div class="flex-grow">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="text-lg font-semibold">The Wilson Initiative</h3>
+                            <div class="text-gray text-sm">2017 - 2021 | Accra, Ghana</div>
+                        </div>
+                        <h4 class="font-medium mb-2">Founder & CEO</h4>
+                        <p class="text-dark-light mb-4">
+                            Co-founded a microfinance program providing hire purchase options to taxi drivers in Accra, Ghana.
+                        </p>
+                        <ul class="list-disc pl-5 text-dark-light mb-4">
+                            <li>Scaled from 0 to 27 taxis in 1.5 years, providing drivers with a pathway to vehicle ownership</li>
+                            <li>Developed a sustainable weekly installment program allowing drivers to own taxis within 2.5 years</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tink Labs -->
+            <div class="experience-card p-6 mb-6">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="company-logo flex-shrink-0">TL</div>
+                    <div class="flex-grow">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="text-lg font-semibold">Tink Labs (Series-C travel-tech startup, unicorn)</h3>
+                            <div class="text-gray text-sm">2017 - 2018 | Global</div>
+                        </div>
+                        <h4 class="font-medium mb-2">Global Head of Sales (Promoted from Africa MD)</h4>
+                        <p class="text-dark-light mb-4">
+                            Leading provider of customized smartphone systems for the hospitality industry across Africa, Latin America, APAC and Europe.
+                        </p>
+                        <ul class="list-disc pl-5 text-dark-light mb-4">
+                            <li class="mb-2">Gained 10-25% market share in under a year by establishing operations in South Africa, Kenya, Ghana, Morocco and Mauritius</li>
+                            <li>Assumed P&L responsibilities for 38 countries, leading 120 staff globally and achieving >US$100M contract value through strategic pricing and sales tactics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- BCG -->
+            <div class="experience-card p-6">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="company-logo flex-shrink-0">BCG</div>
+                    <div class="flex-grow">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="text-lg font-semibold">Boston Consulting Group (BCG)</h3>
+                            <div class="text-gray text-sm">2008 - 2017 | Hong Kong, Greater China</div>
+                        </div>
+                        <h4 class="font-medium mb-2">Project Leader</h4>
+                        <p class="text-dark-light mb-4">
+                            Top 10% in Greater China PL Cohort, focusing on Financial Services, Technology and Social Impact.
+                        </p>
+                        <ul class="list-disc pl-5 text-dark-light mb-4">
+                            <li class="mb-2">Led over 20 strategic projects serving state-owned enterprises, multinational corporations, and private companies</li>
+                            <li>Spearheaded Greater China social impact projects, facilitating collaboration between BCG consultants, NGOs, and social enterprises</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="mb-12 fade-in">
+            <h2 class="section-title text-xl">Education</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="education-card p-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                        <h3 class="text-lg font-semibold">Kellogg School of Management, Northwestern University</h3>
+                        <div class="text-gray text-sm">2012 - 2013</div>
+                    </div>
+                    <p class="text-dark-light">MBA Graduate</p>
+                    <p class="text-gray mt-2">Major: Social Enterprise at Kellogg (SEEK), Marketing, Management & Organizations</p>
+                    <p class="text-gray">Evanston, United States</p>
+                </div>
+                
+                <div class="education-card p-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                        <h3 class="text-lg font-semibold">Chinese University of Hong Kong</h3>
+                        <div class="text-gray text-sm">2005 - 2008</div>
+                    </div>
+                    <p class="text-dark-light">Bachelor of Business Administration</p>
+                    <p class="text-gray mt-2">First class honors (Top 7% in business faculty)</p>
+                    <p class="text-gray">Hong Kong, Copenhagen, Chapel Hill</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills & Interests -->
+        <section class="mb-12 fade-in">
+            <h2 class="section-title text-xl">Skills & Interests</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="experience-card p-6">
+                    <h3 class="text-lg font-semibold mb-4">Professional Skills</h3>
+                    <div class="flex flex-wrap">
+                        <span class="skill-pill">Strategic Leadership</span>
+                        <span class="skill-pill">Business Development</span>
+                        <span class="skill-pill">Team Building</span>
+                        <span class="skill-pill">P&L Management</span>
+                        <span class="skill-pill">Scaling Operations</span>
+                        <span class="skill-pill">International Business</span>
+                        <span class="skill-pill">Cross-Cultural Management</span>
+                        <span class="skill-pill">Startup Growth</span>
+                    </div>
+                </div>
+                
+                <div class="experience-card p-6">
+                    <h3 class="text-lg font-semibold mb-4">Languages</h3>
+                    
+                    <div class="mb-3">
+                        <div class="flex justify-between mb-1">
+                            <span>Cantonese</span>
+                            <span class="text-sm text-gray">Native</span>
+                        </div>
+                        <div class="language-level">
+                            <div class="language-progress" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="flex justify-between mb-1">
+                            <span>English</span>
+                            <span class="text-sm text-gray">Proficient</span>
+                        </div>
+                        <div class="language-level">
+                            <div class="language-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="flex justify-between mb-1">
+                            <span>Mandarin</span>
+                            <span class="text-sm text-gray">Proficient</span>
+                        </div>
+                        <div class="language-level">
+                            <div class="language-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>Spanish</span>
+                            <span class="text-sm text-gray">Beginner</span>
+                        </div>
+                        <div class="language-level">
+                            <div class="language-progress" style="width: 25%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="experience-card p-6">
+                    <h3 class="text-lg font-semibold mb-4">Interests & Publications</h3>
+                    <ul class="text-dark-light">
+                        <li class="mb-2">Author: China vs the West series</li>
+                        <li class="mb-2">Author: Amazon_Explained</li>
+                        <li class="mb-2">Author: AI literacy</li>
+                        <li class="mb-2">Reading, Writing, Squash</li>
+                        <li class="mb-2">Cycling, Traveling</li>
+                        <li>Investment</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray text-sm pt-8 pb-12 fade-in">
+            <p>&copy; 2025 Steven TO (杜子中) | Last Updated: March 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // Scroll indicator
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = scrollTop / docHeight;
+            document.getElementById('scrollIndicator').style.width = scrollPercent * 100 + '%';
+        });
+
+        // Fade-in animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+                
+                // Set a slight delay based on element position to create a cascade effect
+                const delay = Array.from(fadeElements).indexOf(element) * 0.1;
+                element.style.transitionDelay = `${delay}s`;
+            });
+        });
+    </script>
+</body>
+</html>
